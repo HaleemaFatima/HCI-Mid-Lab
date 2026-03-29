@@ -17,9 +17,11 @@ import { getNumericVal, getRelativePointerPosition } from "@/utilities";
 import ShortcutsModal from "./ShortcutsModal";
 import { QuestionCircle } from "react-bootstrap-icons";
 import "./Paint.css";
+import ThemeToggle from "./ThemeToggle";
 
 const Paint = () => {
   const [color, setColor] = useState("#fff");
+  const [isDark, setIsDark] = useState(true); //state to handle dark/light mode
   const [scribbles, setScribbles] = useState<Scribble[]>([]);
   const [polylines, setPolylines] = useState<Polyline[]>([]);
   const [currentId, setCurrentId] = useState<string | null>(null);
@@ -136,6 +138,8 @@ const Paint = () => {
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [polylines, onClear, onUndo, onRedo]);
+
+  const toggleTheme = () => setIsDark(!isDark);
 
   // FIND CLOSEST POINT
   const findClosestPoint = useCallback(
@@ -289,7 +293,10 @@ const Paint = () => {
   };
 
   return (
-    <Box ref={containerRef} className="paint-container">
+    <Box
+      ref={containerRef}
+      className={`paint-container ${isDark ? "" : "light-mode"}`}
+    >
       {/* The Modal */}
       <ShortcutsModal
         isOpen={showShortcuts}
@@ -300,7 +307,22 @@ const Paint = () => {
           <IconButton
             key={id}
             aria-label={label}
-            onClick={() => setDrawAction(id)}
+            onClick={() => {
+              setDrawAction(id);
+              switch (id) {
+                case DrawAction.Undo:
+                  onUndo();
+                  break;
+                case DrawAction.Redo:
+                  onRedo();
+                  break;
+                case DrawAction.Refresh:
+                  setPolylines([...polylines]);
+                  break;
+                default:
+                  break;
+              }
+            }}
             className={`tool-btn ${id === drawAction ? "active" : ""}`}
           >
             <Icon />
@@ -328,6 +350,8 @@ const Paint = () => {
         <IconButton className="tool-btn" onClick={onClear}>
           <XLg />
         </IconButton>
+        {/* Toggle switch */}
+        <ThemeToggle isDark={isDark} toggle={toggleTheme} />
         {/* Info Button */}
         <IconButton
           className="tool-btn"

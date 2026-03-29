@@ -11,8 +11,8 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const shortcuts = [
-    { key: "Z", desc: "Undo", detail: "Undo the changes" },
-    { key: "Y", desc: "Redo", detail: "Redo the changes" },
+    { key: "Ctrl + Z", desc: "Undo", detail: "Undo the changes" },
+    { key: "Ctrl + Y", desc: "Redo", detail: "Redo the changes" },
     { key: "B", desc: "Begin", detail: "Begin to create a new polyline" },
     {
       key: "D",
