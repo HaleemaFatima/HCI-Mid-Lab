@@ -11,7 +11,9 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const shortcuts = [
-    { key: "B", desc: "Begin", detail: "Create a new polyline" },
+    { key: "Z", desc: "Undo", detail: "Undo the changes" },
+    { key: "Y", desc: "Redo", detail: "Redo the changes" },
+    { key: "B", desc: "Begin", detail: "Begin to create a new polyline" },
     {
       key: "D",
       desc: "Delete",
@@ -32,13 +34,16 @@ const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose }) => {
         <div className="modal-header">
           <div className="header-title">
             <Keyboard size={20} className="text-emerald-400" />
-            <h2>Keyboard Shortcuts</h2>
+            <h2>Instructions of Use</h2>
           </div>
           <button onClick={onClose} className="close-icon-btn">
             <X size={20} />
           </button>
         </div>
-
+        <p className="instructions">
+          Use your keyboard to select an operation, and use your mouse to draw
+          on the canvas.
+        </p>
         <div className="modal-body">
           {shortcuts.map((s) => (
             <div key={s.key} className="shortcut-row">

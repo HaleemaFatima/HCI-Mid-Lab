@@ -35,7 +35,7 @@ const Paint = () => {
     viewHeight: undefined,
     viewWidth: undefined,
   });
-  const [showShortcuts, setShowShortcuts] = useState(false);
+  const [showShortcuts, setShowShortcuts] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<StageType | null>(null);
   const currentShapeRef = useRef<string>(null);
@@ -290,6 +290,11 @@ const Paint = () => {
 
   return (
     <Box ref={containerRef} className="paint-container">
+      {/* The Modal */}
+      <ShortcutsModal
+        isOpen={showShortcuts}
+        onClose={() => setShowShortcuts(false)}
+      />
       <Box className="toolbar">
         {DRAW_OPTIONS.map(({ id, label, icon: Icon }) => (
           <IconButton
@@ -332,11 +337,6 @@ const Paint = () => {
           <QuestionCircle />
         </IconButton>
       </Box>
-      {/* The Modal */}
-      <ShortcutsModal
-        isOpen={showShortcuts}
-        onClose={() => setShowShortcuts(false)}
-      />
       <Box className="canvas-wrapper">
         <Box className="canvas-box">
           <Stage

@@ -16,7 +16,7 @@
   border: 1px solid #1e293b;
   border-radius: 16px;
   width: 90%;
-  max-width: 400px;
+  max-width: 500px;
   padding: 24px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
 }
@@ -51,6 +51,11 @@
 
 .close-icon-btn:hover {
   color: #f8fafc;
+}
+
+.instructions {
+  font-size: medium;
+  text-align: center;
 }
 
 .shortcut-row {
